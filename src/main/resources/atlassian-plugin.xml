@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    <param name="plugin-icon">images/pluginIcon.png</param>
+    <param name="plugin-logo">images/pluginLogo.png</param>
+  </plugin-info>
+  <!-- add our i18n resource -->
+  <resource type="i18n" name="i18n" location="jiraPlugin"/>
+  <!-- add our web resources -->
+  <web-resource key="jiraPlugin-resources" name="jiraPlugin Web Resources">
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <resource type="download" name="jiraPlugin.css" location="/css/jiraPlugin.css"/>
+    <resource type="download" name="jiraPlugin.js" location="/js/jiraPlugin.js"/>
+    <resource type="download" name="images/" location="/images"/>
+    <context>jiraPlugin</context>
+  </web-resource>
+  <web-panel name="flockPanel" i18n-name-key="flock-panel.name" key="flock-panel" location="atl.jira.view.issue.right.context" weight="1000">
+    <label key="flock-panel.title"/>
+    <description key="flock-panel.description">The flockPanel Plugin</description>
+    <resource name="view" type="velocity" location="index.vm"/>
+    <context-provider class="com.atlassian.flock.context.PanelContextProvider"/>
+  </web-panel>
+  <rest name="My Rest Resource" i18n-name-key="my-rest-resource.name" key="my-rest-resource" path="/myrestresource" version="1.0">
+    <description key="my-rest-resource.description">The My Rest Resource Plugin</description>
+  </rest>
+  <servlet name="User Servlet" i18n-name-key="user-servlet.name" key="user-servlet" class="com.atlassian.flock.servlet.UserServlet">
+    <description key="user-servlet.description">The User Servlet Plugin</description>
+    <url-pattern>/userservlet</url-pattern>
+  </servlet>
+  <ao key="ao-module">
+    <description>The module configuring the Active Objects service used by this plugin</description>
+    <entity>com.atlassian.flock.interfaces.User</entity>
+  </ao>
+</atlassian-plugin>
